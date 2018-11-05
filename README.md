@@ -1,4 +1,4 @@
-# Adafruit ADXL343 Accelerometer Driver
+# Adafruit ADXL343 Accelerometer Driver [![Build Status](https://travis-ci.org/adafruit/Adafruit_ADXL343.svg?branch=master)](https://travis-ci.org/adafruit/Adafruit_ADXL343)
 
 This driver is for the Adafruit ADXL343 Breakout (http://www.adafruit.com/products/), and is based on Adafruit's Unified Sensor Library (Adafruit_Sensor).
 
@@ -18,7 +18,7 @@ This is imporant useful for two reasons:
 
 1.) You can use the data right away because it's already converted to SI units that you understand and can compare, rather than meaningless values like 0..1023.
 
-2.) Because SI units are standardised in the sensor library, you can also do quick sanity checks working with new sensors, or drop in any comparable sensor if you need better sensitivity or if a lower cost unit becomes available, etc. 
+2.) Because SI units are standardised in the sensor library, you can also do quick sanity checks working with new sensors, or drop in any comparable sensor if you need better sensitivity or if a lower cost unit becomes available, etc.
 
 Light sensors will always report units in lux, gyroscopes will always report units in rad/s, etc. ... freeing you up to focus on the data, rather than digging through the datasheet to understand what the sensor's raw numbers really mean.
 
