@@ -15,7 +15,7 @@
     products from Adafruit!
 
     @section  HISTORY
-    
+
     v1.1 - Added Adafruit_Sensor library support
     v1.0 - First release
 */
@@ -38,9 +38,9 @@
 /**************************************************************************/
 inline uint8_t Adafruit_ADXL343::i2cread(void) {
   #if ARDUINO >= 100
-  return Wire1.read();
+  return _wire->read();
   #else
-  return Wire1.receive();
+  return _wire->receive();
   #endif
 }
 
@@ -51,9 +51,9 @@ inline uint8_t Adafruit_ADXL343::i2cread(void) {
 /**************************************************************************/
 inline void Adafruit_ADXL343::i2cwrite(uint8_t x) {
   #if ARDUINO >= 100
-  Wire1.write((uint8_t)x);
+  _wire->write((uint8_t)x);
   #else
-  Wire1.send(x);
+  _wire->send(x);
   #endif
 }
 
@@ -69,7 +69,7 @@ static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t data) 
     digitalWrite(clock, LOW);
     digitalWrite(mosi, data & (1<<i));
     digitalWrite(clock, HIGH);
-    if (digitalRead(miso)) 
+    if (digitalRead(miso))
       reply |= 1;
   }
   return reply;
@@ -82,10 +82,10 @@ static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t data) 
 /**************************************************************************/
 void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
   if (_i2c) {
-    Wire1.beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(ADXL343_ADDRESS);
     i2cwrite((uint8_t)reg);
     i2cwrite((uint8_t)(value));
-    Wire1.endTransmission();
+    _wire->endTransmission();
   } else {
     digitalWrite(_cs, LOW);
     spixfer(_clk, _di, _do, reg);
@@ -101,10 +101,10 @@ void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
 /**************************************************************************/
 uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
   if (_i2c) {
-    Wire1.beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(ADXL343_ADDRESS);
     i2cwrite(reg);
-    Wire1.endTransmission();
-    Wire1.requestFrom(ADXL343_ADDRESS, 1);
+    _wire->endTransmission();
+    _wire->requestFrom(ADXL343_ADDRESS, 1);
     return (i2cread());
   } else {
     reg |= 0x80; // read byte
@@ -113,7 +113,7 @@ uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
     uint8_t reply = spixfer(_clk, _di, _do, 0xFF);
     digitalWrite(_cs, HIGH);
     return reply;
-  }  
+  }
 }
 
 /**************************************************************************/
@@ -123,11 +123,11 @@ uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
 /**************************************************************************/
 int16_t Adafruit_ADXL343::read16(uint8_t reg) {
   if (_i2c) {
-    Wire1.beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(ADXL343_ADDRESS);
     i2cwrite(reg);
-    Wire1.endTransmission();
-    Wire1.requestFrom(ADXL343_ADDRESS, 2);
-    return (uint16_t)(i2cread() | (i2cread() << 8));  
+    _wire->endTransmission();
+    _wire->requestFrom(ADXL343_ADDRESS, 2);
+    return (uint16_t)(i2cread() | (i2cread() << 8));
   } else {
     reg |= 0x80 | 0x40; // read byte | multibyte
     digitalWrite(_cs, LOW);
@@ -135,11 +135,11 @@ int16_t Adafruit_ADXL343::read16(uint8_t reg) {
     uint16_t reply = spixfer(_clk, _di, _do, 0xFF)  | (spixfer(_clk, _di, _do, 0xFF) << 8);
     digitalWrite(_cs, HIGH);
     return reply;
-  }    
+  }
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Read the device ID (can be used to check connection)
 */
 /**************************************************************************/
@@ -149,7 +149,7 @@ uint8_t Adafruit_ADXL343::getDeviceID(void) {
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Gets the most recent X axis value
 */
 /**************************************************************************/
@@ -158,7 +158,7 @@ int16_t Adafruit_ADXL343::getX(void) {
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Gets the most recent Y axis value
 */
 /**************************************************************************/
@@ -167,7 +167,7 @@ int16_t Adafruit_ADXL343::getY(void) {
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Gets the most recent Z axis value
 */
 /**************************************************************************/
@@ -177,13 +177,33 @@ int16_t Adafruit_ADXL343::getZ(void) {
 
 /**************************************************************************/
 /*!
-    @brief  Instantiates a new ADXL343 class
+*   @brief  Instantiates a new ADXL343 class
+*
+*   @param sensorID  An optional ID # so you can track this sensor, it will
+*                    tag sensorEvents you create.
 */
 /**************************************************************************/
 Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID) {
   _sensorID = sensorID;
   _range = ADXL343_RANGE_2_G;
   _i2c = true;
+  _wire = &Wire;
+}
+
+/**************************************************************************/
+/*!
+*   @brief  Instantiates a new ADXL343 class
+*
+*   @param sensorID  An optional ID # so you can track this sensor, it will
+*                    tag sensorEvents you create.
+*   @param wireBus   TwoWire instance to use for I2C communication.
+*/
+/**************************************************************************/
+Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, TwoWire* wireBus) {
+  _sensorID = sensorID;
+  _range = ADXL343_RANGE_2_G;
+  _i2c = true;
+  _wire = wireBus;
 }
 
 /**************************************************************************/
@@ -207,9 +227,9 @@ Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi, ui
 */
 /**************************************************************************/
 bool Adafruit_ADXL343::begin() {
-  
+
   if (_i2c)
-    Wire1.begin();
+    _wire->begin();
   else {
     pinMode(_cs, OUTPUT);
     pinMode(_clk, OUTPUT);
@@ -223,13 +243,13 @@ bool Adafruit_ADXL343::begin() {
   Serial.print("Device ID: "); Serial.println(deviceid, HEX);
   if (deviceid != 0xE5)
   {
-    /* No ADXL343 detected ... return false */   
+    /* No ADXL343 detected ... return false */
     return false;
   }
-  
+
   // Enable measurements
-  writeRegister(ADXL343_REG_POWER_CTL, 0x08);  
-    
+  writeRegister(ADXL343_REG_POWER_CTL, 0x08);
+
   return true;
 }
 
@@ -246,13 +266,13 @@ void Adafruit_ADXL343::setRange(range_t range)
   /* Update the data rate */
   format &= ~0x0F;
   format |= range;
-  
+
   /* Make sure that the FULL-RES bit is enabled for range scaling */
   format |= 0x08;
-  
+
   /* Write the register back to the IC */
   writeRegister(ADXL343_REG_DATA_FORMAT, format);
-  
+
   /* Keep track of the current range (to avoid readbacks) */
   _range = range;
 }
@@ -291,14 +311,14 @@ dataRate_t Adafruit_ADXL343::getDataRate(void)
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Gets the most recent sensor event
 */
 /**************************************************************************/
 bool Adafruit_ADXL343::getEvent(sensors_event_t *event) {
   /* Clear the event */
   memset(event, 0, sizeof(sensors_event_t));
-  
+
   event->version   = sizeof(sensors_event_t);
   event->sensor_id = _sensorID;
   event->type      = SENSOR_TYPE_ACCELEROMETER;
@@ -309,7 +329,7 @@ bool Adafruit_ADXL343::getEvent(sensors_event_t *event) {
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Gets the sensor_t data
 */
 /**************************************************************************/
@@ -326,5 +346,5 @@ void Adafruit_ADXL343::getSensor(sensor_t *sensor) {
   sensor->min_delay   = 0;
   sensor->max_value   = -156.9064F; /* -16g = 156.9064 m/s^2  */
   sensor->min_value   = 156.9064F;  /*  16g = 156.9064 m/s^2  */
-  sensor->resolution  = 0.03923F;   /*  4mg = 0.0392266 m/s^2 */ 
+  sensor->resolution  = 0.03923F;   /*  4mg = 0.0392266 m/s^2 */
 }
