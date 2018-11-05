@@ -1,12 +1,12 @@
-#Adafruit ADXL345 Accelerometer Driver #
+# Adafruit ADXL343 Accelerometer Driver
 
-This driver is for the Adafruit ADXL345 Breakout (http://www.adafruit.com/products/1231), and is based on Adafruit's Unified Sensor Library (Adafruit_Sensor).
+This driver is for the Adafruit ADXL343 Breakout (http://www.adafruit.com/products/), and is based on Adafruit's Unified Sensor Library (Adafruit_Sensor).
 
-## About the ADXL345 ##
+## About the ADXL343 ##
 
-The ADXL345 is a digital accelerometer that supports both SPI and I2C mode, with adjustable data rata and 'range' (+/-2/4/8/16g).  The Adafruit_ADXL345 driver takes advantage of I2C mode to reduce the total pin count required to use the sensor.
+The ADXL343 is a digital accelerometer that supports both SPI and I2C mode, with adjustable data rata and 'range' (+/-2/4/8/16g).  The Adafruit_ADXL343 driver takes advantage of I2C mode to reduce the total pin count required to use the sensor.
 
-More information on the ADXL345 can be found in the datasheet: http://www.analog.com/static/imported-files/data_sheets/ADXL345.pdf
+More information on the ADXL345 can be found in the datasheet: http://www.analog.com/static/imported-files/data_sheets/ADXL343.pdf
 
 ## What is the Adafruit Unified Sensor Library? ##
 
