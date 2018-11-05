@@ -375,6 +375,8 @@ bool Adafruit_ADXL343::getEvent(sensors_event_t *event) {
   event->acceleration.x = getX() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
   event->acceleration.y = getY() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
   event->acceleration.z = getZ() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+
+  return true;
 }
 
 /**************************************************************************/
