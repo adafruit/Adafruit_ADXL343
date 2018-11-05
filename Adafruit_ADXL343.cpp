@@ -1,8 +1,9 @@
 /**************************************************************************/
 /*!
-    @file     Adafruit_ADXL345.cpp
+    @file     Adafruit_ADXL343.cpp
     @author   K.Townsend (Adafruit Industries)
-    @license  BSD (see license.txt)
+
+    BSD License (see license.txt)
 
     The ADXL343 is a digital accelerometer with 13-bit resolution, capable
     of measuring up to +/-16g.  This driver communicates using I2C.
@@ -13,8 +14,6 @@
     Adafruit invests time and resources providing this open source code,
     please support Adafruit and open-source hardware by purchasing
     products from Adafruit!
-
-    @section  HISTORY
 
     v1.0 - First release
 */
@@ -64,10 +63,10 @@ inline void Adafruit_ADXL343::i2cwrite(uint8_t x) {
 /*!
     @brief  Abstract away SPI receiver & transmitter
 
-    @param The SCK pin
-    @param The MISO pin
-    @param The MOSI pin
-    @param The data to XFER (if any)
+    @param clock The SCK pin
+    @param miso The MISO pin
+    @param mosi The MOSI pin
+    @param data The data to XFER (if any)
 
     @return The byte received on the MISO line.
 */
@@ -89,8 +88,8 @@ static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t data) 
 /*!
     @brief  Writes 8-bits to the specified destination register
 
-    @param The register to write to
-    @param The value to write to the register
+    @param reg The register to write to
+    @param value The value to write to the register
 */
 /**************************************************************************/
 void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
@@ -111,7 +110,7 @@ void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
 /*!
     @brief  Reads 8-bits from the specified register
 
-    @param Tge register to read
+    @param reg register to read
 
     @return The results of the register read request
 */
@@ -137,7 +136,7 @@ uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
 /*!
     @brief  Reads 16-bits from the specified register
 
-    @param The register to read two bytes from
+    @param reg The register to read two bytes from
 
     @return The 16-bit value read from the reg starting address
 */
@@ -239,11 +238,11 @@ Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, TwoWire* wireBus) {
 /*!
     @brief  Instantiates a new ADXL343 class in SPI mode
 
-    @param The SCK pin
-    @param The MISO pin
-    @param the MOSI pin
-    @param the CS/SSEL pin
-    @param An optional ID # so you can track this sensor, it will tag
+    @param clock The SCK pin
+    @param miso The MISO pin
+    @param mosi The MOSI pin
+    @param cs The CS/SSEL pin
+    @param sensorID An optional ID # so you can track this sensor, it will tag
            sensoorEvents you create.
 */
 /**************************************************************************/
@@ -295,7 +294,7 @@ bool Adafruit_ADXL343::begin() {
 /*!
     @brief  Sets the g range for the accelerometer
 
-    @param The range to set, based on range_t
+    @param range The range to set, based on range_t
 */
 /**************************************************************************/
 void Adafruit_ADXL343::setRange(range_t range)
@@ -334,7 +333,7 @@ range_t Adafruit_ADXL343::getRange(void)
 /*!
     @brief  Sets the data rate for the ADXL343 (controls power consumption)
 
-    @param The data rate to set, based on dataRate_t
+    @param dataRate The data rate to set, based on dataRate_t
 */
 /**************************************************************************/
 void Adafruit_ADXL343::setDataRate(dataRate_t dataRate)
@@ -360,7 +359,7 @@ dataRate_t Adafruit_ADXL343::getDataRate(void)
 /*!
     @brief  Gets the most recent sensor event
 
-    @param Pointer to the sensors_event_t placeholder
+    @param event Pointer to the sensors_event_t placeholder
 
     @return True of the read request was successful.
 */
@@ -382,7 +381,7 @@ bool Adafruit_ADXL343::getEvent(sensors_event_t *event) {
 /*!
     @brief  Gets the sensor_t data
 
-    @param Pointer to the sensor_t placeholder.
+    @param sensor Pointer to the sensor_t placeholder.
 */
 /**************************************************************************/
 void Adafruit_ADXL343::getSensor(sensor_t *sensor) {
