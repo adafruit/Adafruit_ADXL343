@@ -78,8 +78,8 @@ void config_interrupts(void)
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(INPUT_PIN_INT1, INPUT);
   pinMode(INPUT_PIN_INT2, INPUT);
-  attachInterrupt(digitalPinToInterrupt(INPUT_PIN_INT1), int1_isr, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(INPUT_PIN_INT2), int2_isr, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(INPUT_PIN_INT1), int1_isr, RISING);
+  attachInterrupt(digitalPinToInterrupt(INPUT_PIN_INT2), int2_isr, RISING);
 
   /* Enable interrupts on the accelerometer. */
   g_int_config_enabled.bits.overrun    = true;    /* Set the INT1 */
