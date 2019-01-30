@@ -103,7 +103,7 @@ typedef enum
 
 /** Possible interrupts sources on the ADXL343. */
 union int_config {
-  uint8_t value;
+  uint8_t value;                  /**< Composite 8-bit value of the bitfield.*/
   struct {
     uint8_t overrun:    1;        /**< Bit 0 */
     uint8_t watermark:  1;        /**< Bit 1 */
@@ -113,7 +113,7 @@ union int_config {
     uint8_t double_tap: 1;        /**< Bit 5 */
     uint8_t single_tap: 1;        /**< Bit 6 */
     uint8_t data_ready: 1;        /**< Bit 7 */
-  } bits;
+  } bits;                         /**< Individual bits in the bitfield. */
 };
 
 /** Possible interrupt pin outputs on the ADXL343. */

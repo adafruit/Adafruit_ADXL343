@@ -175,6 +175,8 @@ uint8_t Adafruit_ADXL343::getDeviceID(void) {
     @brief  Enables (1) or disables (0) the interrupts on the specified
             interrupt pin.
 
+    @param cfg The bitfield of the interrupts to enable or disable.
+
     @return True if the operation was successful, otherwise false.
 */
 /**************************************************************************/
@@ -190,6 +192,8 @@ bool Adafruit_ADXL343::enableInterrupts(int_config cfg) {
 /*!
     @brief  'Maps' the specific interrupt to either pin INT1 (bit=0),
             of pin INT2 (bit=1).
+
+    @param cfg The bitfield of the interrupts to enable or disable.
 
     @return True if the operation was successful, otherwise false.
 */
