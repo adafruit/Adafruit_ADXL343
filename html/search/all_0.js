@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['activity',['activity',['../unionint__config.html#a625703cff7e93831f6e55eb48f739b37',1,'int_config']]],
   ['adafruit_5fadxl343',['Adafruit_ADXL343',['../class_adafruit___a_d_x_l343.html',1,'Adafruit_ADXL343'],['../class_adafruit___a_d_x_l343.html#aa62db60446ca9ad7033d7c821573f716',1,'Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID)'],['../class_adafruit___a_d_x_l343.html#a6716ac3f8d88dc306bc562467c5aab0b',1,'Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, TwoWire *wireBus)'],['../class_adafruit___a_d_x_l343.html#ab8d8b1d8a193667b03dfedb742027cf4',1,'Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t cs, int32_t sensorID=-1)']]],
   ['adafruit_5fadxl343_2ecpp',['Adafruit_ADXL343.cpp',['../_adafruit___a_d_x_l343_8cpp.html',1,'']]],
   ['adafruit_5fadxl343_2eh',['Adafruit_ADXL343.h',['../_adafruit___a_d_x_l343_8h.html',1,'']]],
@@ -54,6 +55,5 @@ var searchData=
   ['adxl343_5freg_5fthresh_5ftap',['ADXL343_REG_THRESH_TAP',['../_adafruit___a_d_x_l343_8h.html#a67dceb2a59b69b7555c9b4cc4464c7e1',1,'Adafruit_ADXL343.h']]],
   ['adxl343_5freg_5ftime_5fff',['ADXL343_REG_TIME_FF',['../_adafruit___a_d_x_l343_8h.html#a19bdaf7238019ef78ef37b466a6ce1f8',1,'Adafruit_ADXL343.h']]],
   ['adxl343_5freg_5ftime_5finact',['ADXL343_REG_TIME_INACT',['../_adafruit___a_d_x_l343_8h.html#aa8c3329aba4165a3715754f52bb03255',1,'Adafruit_ADXL343.h']]],
-  ['adxl343_5freg_5fwindow',['ADXL343_REG_WINDOW',['../_adafruit___a_d_x_l343_8h.html#a1f6c0706dd4cc299d378ac75e4e1e15d',1,'Adafruit_ADXL343.h']]],
-  ['adafruit_20adxl343_20accelerometer_20driver_20_5b_21_5bbuild_20status_5d_28https_3a_2f_2ftravis_2dci_2eorg_2fadafruit_2fadafruit_5fadxl343_2esvg_3fbranch_3dmaster_29_5d_28https_3a_2f_2ftravis_2dci_2eorg_2fadafruit_2fadafruit_5fadxl343_29',['Adafruit ADXL343 Accelerometer Driver [![Build Status](https://travis-ci.org/adafruit/Adafruit_ADXL343.svg?branch=master)](https://travis-ci.org/adafruit/Adafruit_ADXL343)',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['adxl343_5freg_5fwindow',['ADXL343_REG_WINDOW',['../_adafruit___a_d_x_l343_8h.html#a1f6c0706dd4cc299d378ac75e4e1e15d',1,'Adafruit_ADXL343.h']]]
 ];
