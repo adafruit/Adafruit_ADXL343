@@ -172,6 +172,38 @@ uint8_t Adafruit_ADXL343::getDeviceID(void) {
 
 /**************************************************************************/
 /*!
+    @brief  Enables (1) or disables (0) the interrupts on the specified
+            interrupt pin.
+
+    @return True if the operation was successful, otherwise false.
+*/
+/**************************************************************************/
+bool Adafruit_ADXL343::enableInterrupts(int_config cfg) {
+    /* Update the INT_ENABLE register with 'config'. */
+    writeRegister(ADXL343_REG_INT_ENABLE, cfg.value);
+
+    /* ToDo: Add proper error checking! */
+    return true;
+}
+
+/**************************************************************************/
+/*!
+    @brief  'Maps' the specific interrupt to either pin INT1 (bit=0),
+            of pin INT2 (bit=1).
+
+    @return True if the operation was successful, otherwise false.
+*/
+/**************************************************************************/
+bool Adafruit_ADXL343::mapInterrupts(int_config cfg) {
+    /* Update the INT_MAP register with 'config'. */
+    writeRegister(ADXL343_REG_INT_MAP, cfg.value);
+
+    /* ToDo: Add proper error checking! */
+    return true;
+}
+
+/**************************************************************************/
+/*!
     @brief  Gets the most recent X axis value
 
     @return The 16-bit signed value for the X axis
@@ -277,7 +309,6 @@ bool Adafruit_ADXL343::begin() {
 
   /* Check connection */
   uint8_t deviceid = getDeviceID();
-  Serial.print("Device ID: "); Serial.println(deviceid, HEX);
   if (deviceid != 0xE5)
   {
     /* No ADXL343 detected ... return false */

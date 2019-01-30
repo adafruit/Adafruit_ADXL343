@@ -101,6 +101,28 @@ typedef enum
   ADXL343_RANGE_2_G           = 0b00    /**< +/- 2g (default value) */
 } range_t;
 
+/** Possible interrupts sources on the ADXL343. */
+union int_config {
+  uint8_t value;
+  struct {
+    uint8_t overrun:    1;        /**< Bit 0 */
+    uint8_t watermark:  1;        /**< Bit 1 */
+    uint8_t freefall:   1;        /**< Bit 2 */
+    uint8_t inactivity: 1;        /**< Bit 3 */
+    uint8_t activity:   1;        /**< Bit 4 */
+    uint8_t double_tap: 1;        /**< Bit 5 */
+    uint8_t single_tap: 1;        /**< Bit 6 */
+    uint8_t data_ready: 1;        /**< Bit 7 */
+  } bits;
+};
+
+/** Possible interrupt pin outputs on the ADXL343. */
+typedef enum
+{
+  ADXL343_INT1  = 0,
+  ADXL343_INT2  = 1
+} int_pin;
+
 /**
  * Driver for the Adafruit ADXL343 breakout.
  */
@@ -123,9 +145,14 @@ class Adafruit_ADXL343 : public Adafruit_Sensor {
   uint8_t    readRegister(uint8_t reg);
   int16_t    read16(uint8_t reg);
 
-  int16_t    getX(void), getY(void), getZ(void);
- private:
+  bool       enableInterrupts(int_config cfg);
+  bool       mapInterrupts(int_config cfg);
 
+  int16_t    getX(void);
+  int16_t    getY(void);
+  int16_t    getZ(void);
+
+ private:
   inline uint8_t  i2cread(void);
   inline void     i2cwrite(uint8_t x);
 
