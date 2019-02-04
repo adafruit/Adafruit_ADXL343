@@ -9,7 +9,7 @@
     of measuring up to +/-16g.  This driver communicates using I2C.
 
     This is a library for the Adafruit ADXL343 breakout
-    ----> https://www.adafruit.com/products/1231
+    ----> https://www.adafruit.com/products/xxxx
 
     Adafruit invests time and resources providing this open source code,
     please support Adafruit and open-source hardware by purchasing
