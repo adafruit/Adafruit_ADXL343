@@ -123,9 +123,9 @@ void setup(void)
 
   /* Set the range to whatever is appropriate for your project */
   accel.setRange(ADXL343_RANGE_16_G);
-  // displaySetRange(ADXL343_RANGE_8_G);
-  // displaySetRange(ADXL343_RANGE_4_G);
-  // displaySetRange(ADXL343_RANGE_2_G);
+  // accel.setRange(ADXL343_RANGE_8_G);
+  // accel.setRange(ADXL343_RANGE_4_G);
+  // accel.setRange(ADXL343_RANGE_2_G);
 
   /* Display some basic information on this sensor */
   displaySensorDetails();
