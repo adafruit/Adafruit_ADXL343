@@ -3,7 +3,12 @@
 #include <Adafruit_ADXL343.h>
 
 /* Assign a unique ID to this sensor at the same time */
+/* Uncomment following line for default Wire bus      */
 Adafruit_ADXL343 accel = Adafruit_ADXL343(12345);
+
+/* NeoTrellis M4, etc.                    */
+/* Uncomment following line for Wire1 bus */
+//Adafruit_ADXL343 accel = Adafruit_ADXL343(12345, &Wire1);
 
 void displaySensorDetails(void)
 {
