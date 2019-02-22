@@ -126,6 +126,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab2985273e580239dac8a672eb51f3f57"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#ab2985273e580239dac8a672eb51f3f57">mapInterrupts</a> (<a class="el" href="unionint__config.html">int_config</a> cfg)</td></tr>
 <tr class="memdesc:ab2985273e580239dac8a672eb51f3f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">'Maps' the specific interrupt to either pin INT1 (bit=0), of pin INT2 (bit=1).  <a href="#ab2985273e580239dac8a672eb51f3f57">More...</a><br /></td></tr>
 <tr class="separator:ab2985273e580239dac8a672eb51f3f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65d5a63863193fcaf5e59004880f817"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#aa65d5a63863193fcaf5e59004880f817">checkInterrupts</a> (void)</td></tr>
+<tr class="memdesc:aa65d5a63863193fcaf5e59004880f817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the status of the interrupt pins. Reading this register also clears or deasserts any currently active interrupt.  <a href="#aa65d5a63863193fcaf5e59004880f817">More...</a><br /></td></tr>
+<tr class="separator:aa65d5a63863193fcaf5e59004880f817"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acba8a90ba0532baae64acf67c9338c4a"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#acba8a90ba0532baae64acf67c9338c4a">getX</a> (void)</td></tr>
 <tr class="memdesc:acba8a90ba0532baae64acf67c9338c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the most recent X axis value.  <a href="#acba8a90ba0532baae64acf67c9338c4a">More...</a><br /></td></tr>
 <tr class="separator:acba8a90ba0532baae64acf67c9338c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -592,6 +595,27 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the operation was successful, otherwise false. </dd></dl>
+
+</div>
+</div>
+<a id="aa65d5a63863193fcaf5e59004880f817"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65d5a63863193fcaf5e59004880f817">&#9670;&nbsp;</a></span>checkInterrupts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Adafruit_ADXL343::checkInterrupts </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads the status of the interrupt pins. Reading this register also clears or deasserts any currently active interrupt. </p>
+<dl class="section return"><dt>Returns</dt><dd>The 8-bit content of the INT_SOURCE register. </dd></dl>
 
 </div>
 </div>
