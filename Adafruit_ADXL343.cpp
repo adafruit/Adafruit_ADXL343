@@ -208,6 +208,19 @@ bool Adafruit_ADXL343::mapInterrupts(int_config cfg) {
 
 /**************************************************************************/
 /*!
+    @brief  Reads the status of the interrupt pins. Reading this register
+            also clears or deasserts any currently active interrupt.
+
+    @return The 8-bit content of the INT_SOURCE register.
+*/
+/**************************************************************************/
+uint8_t Adafruit_ADXL343::checkInterrupts(void) {
+    uint8_t format = readRegister(ADXL343_REG_INT_SOURCE);
+    return format;
+}
+
+/**************************************************************************/
+/*!
     @brief  Gets the most recent X axis value
 
     @return The 16-bit signed value for the X axis
@@ -318,6 +331,17 @@ bool Adafruit_ADXL343::begin() {
     /* No ADXL343 detected ... return false */
     return false;
   }
+
+  // Default tap detection level (2G, 31.25ms duration, single tap only)
+  // If only the single tap function is in use, the single tap interrupt
+  // is triggered when the acceleration goes below the threshold, as
+  // long as DUR has not been exceeded.
+  writeRegister(ADXL343_REG_INT_ENABLE, 0);     // Disable interrupts to start
+  writeRegister(ADXL343_REG_THRESH_TAP, 20);    // 62.5 mg/LSB (so 0xFF = 16 g)
+  writeRegister(ADXL343_REG_DUR, 50);           // Max tap duration, 625 µs/LSB
+  writeRegister(ADXL343_REG_LATENT, 0);         // Tap latency, 1.25 ms/LSB, 0=no double tap
+  writeRegister(ADXL343_REG_WINDOW, 0);         // Waiting period,  1.25 ms/LSB, 0=no double tap
+  writeRegister(ADXL343_REG_TAP_AXES, 0x7);     // Enable the XYZ axis for tap
 
   // Enable measurements
   writeRegister(ADXL343_REG_POWER_CTL, 0x08);

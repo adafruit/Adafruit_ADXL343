@@ -113,7 +113,7 @@ union int_config {
     uint8_t double_tap: 1;        /**< Bit 5 */
     uint8_t single_tap: 1;        /**< Bit 6 */
     uint8_t data_ready: 1;        /**< Bit 7 */
-  } bits;                         /**< Individual bits in the bitfield. */
+} bits;                           /**< Individual bits in the bitfield. */
 };
 
 /** Possible interrupt pin outputs on the ADXL343. */
@@ -147,6 +147,7 @@ class Adafruit_ADXL343 : public Adafruit_Sensor {
 
   bool       enableInterrupts(int_config cfg);
   bool       mapInterrupts(int_config cfg);
+  uint8_t    checkInterrupts(void);
 
   int16_t    getX(void);
   int16_t    getY(void);
