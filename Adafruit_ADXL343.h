@@ -15,6 +15,9 @@
     v1.0  - First release
 */
 /**************************************************************************/
+#ifndef _ADAFRUIT_SENSOR_ADXL343_H
+#define _ADAFRUIT_SENSOR_ADXL343_H
+
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
@@ -163,3 +166,5 @@ class Adafruit_ADXL343 : public Adafruit_Sensor {
   uint8_t _clk, _do, _di, _cs;
   bool    _i2c;
 };
+
+#endif
