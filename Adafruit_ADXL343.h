@@ -131,7 +131,7 @@ public:
   Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t cs,
                    int32_t sensorID = -1);
 
-  bool begin(void);
+  bool begin(uint8_t i2caddr = ADXL343_ADDRESS);
   void setRange(range_t range);
   range_t getRange(void);
   void setDataRate(dataRate_t dataRate);
@@ -155,6 +155,7 @@ public:
 private:
   inline uint8_t i2cread(void);
   inline void i2cwrite(uint8_t x);
+  uint8_t _i2caddr;
 
   TwoWire *_wire;
   int32_t _sensorID;

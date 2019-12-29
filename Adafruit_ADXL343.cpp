@@ -95,7 +95,7 @@ static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi,
 /**************************************************************************/
 void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
   if (_i2c) {
-    _wire->beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(_i2caddr);
     i2cwrite((uint8_t)reg);
     i2cwrite((uint8_t)(value));
     _wire->endTransmission();
@@ -118,10 +118,10 @@ void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
 /**************************************************************************/
 uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
   if (_i2c) {
-    _wire->beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(_i2caddr);
     i2cwrite(reg);
     _wire->endTransmission();
-    _wire->requestFrom(ADXL343_ADDRESS, 1);
+    _wire->requestFrom(_i2caddr, 1);
     return (i2cread());
   } else {
     reg |= 0x80; // read byte
@@ -144,10 +144,10 @@ uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
 /**************************************************************************/
 int16_t Adafruit_ADXL343::read16(uint8_t reg) {
   if (_i2c) {
-    _wire->beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(_i2caddr);
     i2cwrite(reg);
     _wire->endTransmission();
-    _wire->requestFrom(ADXL343_ADDRESS, 2);
+    _wire->requestFrom(_i2caddr, 2);
     return (uint16_t)(i2cread() | (i2cread() << 8));
   } else {
     reg |= 0x80 | 0x40; // read byte | multibyte
@@ -305,15 +305,16 @@ Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi,
 /**************************************************************************/
 /*!
     @brief  Setups the HW (reads coefficients values, etc.)
-
+    @param  i2caddr The 7-bit I2C address to find the ADXL on
     @return True if the sensor was successfully initialised.
 */
 /**************************************************************************/
-bool Adafruit_ADXL343::begin() {
+bool Adafruit_ADXL343::begin(uint8_t i2caddr) {
 
-  if (_i2c)
+  if (_i2c) {
     _wire->begin();
-  else {
+    _i2caddr = i2caddr;
+  } else {
     pinMode(_cs, OUTPUT);
     pinMode(_clk, OUTPUT);
     digitalWrite(_clk, HIGH);
