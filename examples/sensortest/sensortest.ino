@@ -118,7 +118,6 @@ void setup(void)
 
   /* Display some basic information on this sensor */
   accel.printSensorDetails();
-  displaySensorDetails();
   displayDataRate();
   displayRange();
   Serial.println("");
