@@ -87,9 +87,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab8d8b1d8a193667b03dfedb742027cf4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#ab8d8b1d8a193667b03dfedb742027cf4">Adafruit_ADXL343</a> (uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t cs, int32_t sensorID=-1)</td></tr>
 <tr class="memdesc:ab8d8b1d8a193667b03dfedb742027cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new ADXL343 class in SPI mode.  <a href="#ab8d8b1d8a193667b03dfedb742027cf4">More...</a><br /></td></tr>
 <tr class="separator:ab8d8b1d8a193667b03dfedb742027cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af016a15118b77a769cbcce0e72d5bd93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#af016a15118b77a769cbcce0e72d5bd93">begin</a> (void)</td></tr>
-<tr class="memdesc:af016a15118b77a769cbcce0e72d5bd93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setups the HW (reads coefficients values, etc.)  <a href="#af016a15118b77a769cbcce0e72d5bd93">More...</a><br /></td></tr>
-<tr class="separator:af016a15118b77a769cbcce0e72d5bd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac43fa05e13e839fc43f1cff41e10f8fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#ac43fa05e13e839fc43f1cff41e10f8fc">begin</a> (uint8_t i2caddr=<a class="el" href="_adafruit___a_d_x_l343_8h.html#a471a5bff26beba374f78df5b333d4716">ADXL343_ADDRESS</a>)</td></tr>
+<tr class="memdesc:ac43fa05e13e839fc43f1cff41e10f8fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setups the HW (reads coefficients values, etc.)  <a href="#ac43fa05e13e839fc43f1cff41e10f8fc">More...</a><br /></td></tr>
+<tr class="separator:ac43fa05e13e839fc43f1cff41e10f8fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e1023422638d87621053d50536dc155"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#a7e1023422638d87621053d50536dc155">setRange</a> (<a class="el" href="_adafruit___a_d_x_l343_8h.html#a23c78f6ff1abdabd74f657e54e415e5b">range_t</a> range)</td></tr>
 <tr class="memdesc:a7e1023422638d87621053d50536dc155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the g range for the accelerometer.  <a href="#a7e1023422638d87621053d50536dc155">More...</a><br /></td></tr>
 <tr class="separator:a7e1023422638d87621053d50536dc155"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,8 +264,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af016a15118b77a769cbcce0e72d5bd93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af016a15118b77a769cbcce0e72d5bd93">&#9670;&nbsp;</a></span>begin()</h2>
+<a id="ac43fa05e13e839fc43f1cff41e10f8fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac43fa05e13e839fc43f1cff41e10f8fc">&#9670;&nbsp;</a></span>begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,14 +273,20 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">bool Adafruit_ADXL343::begin </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>i2caddr</em> = <code><a class="el" href="_adafruit___a_d_x_l343_8h.html#a471a5bff26beba374f78df5b333d4716">ADXL343_ADDRESS</a></code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Setups the HW (reads coefficients values, etc.) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i2caddr</td><td>The 7-bit I2C address to find the ADXL on </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the sensor was successfully initialised. </dd></dl>
 
 </div>
