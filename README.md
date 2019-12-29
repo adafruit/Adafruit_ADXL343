@@ -1,4 +1,4 @@
-# Adafruit ADXL343 Accelerometer Driver [![Build Status](https://travis-ci.com/adafruit/Adafruit_ADXL343.svg?branch=master)](https://travis-ci.com/adafruit/Adafruit_ADXL343)
+# Adafruit ADXL343 Accelerometer Driver ![Build Status](https://github.com/adafruit/Adafruit_ADXL343/workflows/Arduino%20Library%20CI/badge.svg)
 
 This driver is for the Adafruit ADXL343 Breakout (http://www.adafruit.com/products/), and is based on Adafruit's Unified Sensor Library (Adafruit_Sensor).
 

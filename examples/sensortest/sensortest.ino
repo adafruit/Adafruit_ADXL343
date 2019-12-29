@@ -10,22 +10,6 @@ Adafruit_ADXL343 accel = Adafruit_ADXL343(12345);
 /* Uncomment following line for Wire1 bus */
 //Adafruit_ADXL343 accel = Adafruit_ADXL343(12345, &Wire1);
 
-void displaySensorDetails(void)
-{
-  sensor_t sensor;
-  accel.getSensor(&sensor);
-  Serial.println("------------------------------------");
-  Serial.print  ("Sensor:       "); Serial.println(sensor.name);
-  Serial.print  ("Driver Ver:   "); Serial.println(sensor.version);
-  Serial.print  ("Unique ID:    "); Serial.println(sensor.sensor_id);
-  Serial.print  ("Max Value:    "); Serial.print(sensor.max_value); Serial.println(" m/s^2");
-  Serial.print  ("Min Value:    "); Serial.print(sensor.min_value); Serial.println(" m/s^2");
-  Serial.print  ("Resolution:   "); Serial.print(sensor.resolution); Serial.println(" m/s^2");
-  Serial.println("------------------------------------");
-  Serial.println("");
-  delay(500);
-}
-
 void displayDataRate(void)
 {
   Serial.print  ("Data Rate:    ");
@@ -133,7 +117,7 @@ void setup(void)
   // accel.setRange(ADXL343_RANGE_2_G);
 
   /* Display some basic information on this sensor */
-  displaySensorDetails();
+  accel.printSensorDetails();
   displayDataRate();
   displayRange();
   Serial.println("");

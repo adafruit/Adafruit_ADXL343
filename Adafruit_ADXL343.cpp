@@ -19,9 +19,9 @@
 */
 /**************************************************************************/
 #if ARDUINO >= 100
- #include "Arduino.h"
+#include "Arduino.h"
 #else
- #include "WProgram.h"
+#include "WProgram.h"
 #endif
 
 #include <Wire.h>
@@ -37,11 +37,11 @@
 */
 /**************************************************************************/
 inline uint8_t Adafruit_ADXL343::i2cread(void) {
-  #if ARDUINO >= 100
+#if ARDUINO >= 100
   return _wire->read();
-  #else
+#else
   return _wire->receive();
-  #endif
+#endif
 }
 
 /**************************************************************************/
@@ -52,11 +52,11 @@ inline uint8_t Adafruit_ADXL343::i2cread(void) {
 */
 /**************************************************************************/
 inline void Adafruit_ADXL343::i2cwrite(uint8_t x) {
-  #if ARDUINO >= 100
+#if ARDUINO >= 100
   _wire->write((uint8_t)x);
-  #else
+#else
   _wire->send(x);
-  #endif
+#endif
 }
 
 /**************************************************************************/
@@ -71,12 +71,13 @@ inline void Adafruit_ADXL343::i2cwrite(uint8_t x) {
     @return The byte received on the MISO line.
 */
 /**************************************************************************/
-static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t data) {
+static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi,
+                       uint8_t data) {
   uint8_t reply = 0;
-  for (int i=7; i>=0; i--) {
+  for (int i = 7; i >= 0; i--) {
     reply <<= 1;
     digitalWrite(clock, LOW);
-    digitalWrite(mosi, data & (1<<i));
+    digitalWrite(mosi, data & (1 << i));
     digitalWrite(clock, HIGH);
     if (digitalRead(miso))
       reply |= 1;
@@ -94,7 +95,7 @@ static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t data) 
 /**************************************************************************/
 void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
   if (_i2c) {
-    _wire->beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(_i2caddr);
     i2cwrite((uint8_t)reg);
     i2cwrite((uint8_t)(value));
     _wire->endTransmission();
@@ -117,10 +118,10 @@ void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
 /**************************************************************************/
 uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
   if (_i2c) {
-    _wire->beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(_i2caddr);
     i2cwrite(reg);
     _wire->endTransmission();
-    _wire->requestFrom(ADXL343_ADDRESS, 1);
+    _wire->requestFrom(_i2caddr, 1);
     return (i2cread());
   } else {
     reg |= 0x80; // read byte
@@ -143,16 +144,17 @@ uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
 /**************************************************************************/
 int16_t Adafruit_ADXL343::read16(uint8_t reg) {
   if (_i2c) {
-    _wire->beginTransmission(ADXL343_ADDRESS);
+    _wire->beginTransmission(_i2caddr);
     i2cwrite(reg);
     _wire->endTransmission();
-    _wire->requestFrom(ADXL343_ADDRESS, 2);
+    _wire->requestFrom(_i2caddr, 2);
     return (uint16_t)(i2cread() | (i2cread() << 8));
   } else {
     reg |= 0x80 | 0x40; // read byte | multibyte
     digitalWrite(_cs, LOW);
     spixfer(_clk, _di, _do, reg);
-    uint16_t reply = spixfer(_clk, _di, _do, 0xFF)  | (spixfer(_clk, _di, _do, 0xFF) << 8);
+    uint16_t reply =
+        spixfer(_clk, _di, _do, 0xFF) | (spixfer(_clk, _di, _do, 0xFF) << 8);
     digitalWrite(_cs, HIGH);
     return reply;
   }
@@ -181,11 +183,11 @@ uint8_t Adafruit_ADXL343::getDeviceID(void) {
 */
 /**************************************************************************/
 bool Adafruit_ADXL343::enableInterrupts(int_config cfg) {
-    /* Update the INT_ENABLE register with 'config'. */
-    writeRegister(ADXL343_REG_INT_ENABLE, cfg.value);
+  /* Update the INT_ENABLE register with 'config'. */
+  writeRegister(ADXL343_REG_INT_ENABLE, cfg.value);
 
-    /* ToDo: Add proper error checking! */
-    return true;
+  /* ToDo: Add proper error checking! */
+  return true;
 }
 
 /**************************************************************************/
@@ -199,11 +201,11 @@ bool Adafruit_ADXL343::enableInterrupts(int_config cfg) {
 */
 /**************************************************************************/
 bool Adafruit_ADXL343::mapInterrupts(int_config cfg) {
-    /* Update the INT_MAP register with 'config'. */
-    writeRegister(ADXL343_REG_INT_MAP, cfg.value);
+  /* Update the INT_MAP register with 'config'. */
+  writeRegister(ADXL343_REG_INT_MAP, cfg.value);
 
-    /* ToDo: Add proper error checking! */
-    return true;
+  /* ToDo: Add proper error checking! */
+  return true;
 }
 
 /**************************************************************************/
@@ -215,8 +217,8 @@ bool Adafruit_ADXL343::mapInterrupts(int_config cfg) {
 */
 /**************************************************************************/
 uint8_t Adafruit_ADXL343::checkInterrupts(void) {
-    uint8_t format = readRegister(ADXL343_REG_INT_SOURCE);
-    return format;
+  uint8_t format = readRegister(ADXL343_REG_INT_SOURCE);
+  return format;
 }
 
 /**************************************************************************/
@@ -226,9 +228,7 @@ uint8_t Adafruit_ADXL343::checkInterrupts(void) {
     @return The 16-bit signed value for the X axis
 */
 /**************************************************************************/
-int16_t Adafruit_ADXL343::getX(void) {
-  return read16(ADXL343_REG_DATAX0);
-}
+int16_t Adafruit_ADXL343::getX(void) { return read16(ADXL343_REG_DATAX0); }
 
 /**************************************************************************/
 /*!
@@ -237,9 +237,7 @@ int16_t Adafruit_ADXL343::getX(void) {
     @return The 16-bit signed value for the Y axis
 */
 /**************************************************************************/
-int16_t Adafruit_ADXL343::getY(void) {
-  return read16(ADXL343_REG_DATAY0);
-}
+int16_t Adafruit_ADXL343::getY(void) { return read16(ADXL343_REG_DATAY0); }
 
 /**************************************************************************/
 /*!
@@ -248,17 +246,15 @@ int16_t Adafruit_ADXL343::getY(void) {
     @return The 16-bit signed value for the Z axis
 */
 /**************************************************************************/
-int16_t Adafruit_ADXL343::getZ(void) {
-  return read16(ADXL343_REG_DATAZ0);
-}
+int16_t Adafruit_ADXL343::getZ(void) { return read16(ADXL343_REG_DATAZ0); }
 
 /**************************************************************************/
 /*!
-*   @brief  Instantiates a new ADXL343 class
-*
-*   @param sensorID  An optional ID # so you can track this sensor, it will
-*                    tag sensorEvents you create.
-*/
+ *   @brief  Instantiates a new ADXL343 class
+ *
+ *   @param sensorID  An optional ID # so you can track this sensor, it will
+ *                    tag sensorEvents you create.
+ */
 /**************************************************************************/
 Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID) {
   _sensorID = sensorID;
@@ -269,14 +265,14 @@ Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID) {
 
 /**************************************************************************/
 /*!
-*   @brief  Instantiates a new ADXL343 class
-*
-*   @param sensorID  An optional ID # so you can track this sensor, it will
-*                    tag sensorEvents you create.
-*   @param wireBus   TwoWire instance to use for I2C communication.
-*/
+ *   @brief  Instantiates a new ADXL343 class
+ *
+ *   @param sensorID  An optional ID # so you can track this sensor, it will
+ *                    tag sensorEvents you create.
+ *   @param wireBus   TwoWire instance to use for I2C communication.
+ */
 /**************************************************************************/
-Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, TwoWire* wireBus) {
+Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, TwoWire *wireBus) {
   _sensorID = sensorID;
   _range = ADXL343_RANGE_2_G;
   _i2c = true;
@@ -295,7 +291,8 @@ Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, TwoWire* wireBus) {
            sensoorEvents you create.
 */
 /**************************************************************************/
-Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t cs, int32_t sensorID) {
+Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi,
+                                   uint8_t cs, int32_t sensorID) {
   _sensorID = sensorID;
   _range = ADXL343_RANGE_2_G;
   _cs = cs;
@@ -308,15 +305,16 @@ Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi, ui
 /**************************************************************************/
 /*!
     @brief  Setups the HW (reads coefficients values, etc.)
-
+    @param  i2caddr The 7-bit I2C address to find the ADXL on
     @return True if the sensor was successfully initialised.
 */
 /**************************************************************************/
-bool Adafruit_ADXL343::begin() {
+bool Adafruit_ADXL343::begin(uint8_t i2caddr) {
 
-  if (_i2c)
+  if (_i2c) {
     _wire->begin();
-  else {
+    _i2caddr = i2caddr;
+  } else {
     pinMode(_cs, OUTPUT);
     pinMode(_clk, OUTPUT);
     digitalWrite(_clk, HIGH);
@@ -326,8 +324,7 @@ bool Adafruit_ADXL343::begin() {
 
   /* Check connection */
   uint8_t deviceid = getDeviceID();
-  if (deviceid != 0xE5)
-  {
+  if (deviceid != 0xE5) {
     /* No ADXL343 detected ... return false */
     return false;
   }
@@ -336,12 +333,14 @@ bool Adafruit_ADXL343::begin() {
   // If only the single tap function is in use, the single tap interrupt
   // is triggered when the acceleration goes below the threshold, as
   // long as DUR has not been exceeded.
-  writeRegister(ADXL343_REG_INT_ENABLE, 0);     // Disable interrupts to start
-  writeRegister(ADXL343_REG_THRESH_TAP, 20);    // 62.5 mg/LSB (so 0xFF = 16 g)
-  writeRegister(ADXL343_REG_DUR, 50);           // Max tap duration, 625 µs/LSB
-  writeRegister(ADXL343_REG_LATENT, 0);         // Tap latency, 1.25 ms/LSB, 0=no double tap
-  writeRegister(ADXL343_REG_WINDOW, 0);         // Waiting period,  1.25 ms/LSB, 0=no double tap
-  writeRegister(ADXL343_REG_TAP_AXES, 0x7);     // Enable the XYZ axis for tap
+  writeRegister(ADXL343_REG_INT_ENABLE, 0);  // Disable interrupts to start
+  writeRegister(ADXL343_REG_THRESH_TAP, 20); // 62.5 mg/LSB (so 0xFF = 16 g)
+  writeRegister(ADXL343_REG_DUR, 50);        // Max tap duration, 625 µs/LSB
+  writeRegister(ADXL343_REG_LATENT,
+                0); // Tap latency, 1.25 ms/LSB, 0=no double tap
+  writeRegister(ADXL343_REG_WINDOW,
+                0); // Waiting period,  1.25 ms/LSB, 0=no double tap
+  writeRegister(ADXL343_REG_TAP_AXES, 0x7); // Enable the XYZ axis for tap
 
   // Enable measurements
   writeRegister(ADXL343_REG_POWER_CTL, 0x08);
@@ -356,8 +355,7 @@ bool Adafruit_ADXL343::begin() {
     @param range The range to set, based on range_t
 */
 /**************************************************************************/
-void Adafruit_ADXL343::setRange(range_t range)
-{
+void Adafruit_ADXL343::setRange(range_t range) {
   /* Red the data format register to preserve bits */
   uint8_t format = readRegister(ADXL343_REG_DATA_FORMAT);
 
@@ -382,8 +380,7 @@ void Adafruit_ADXL343::setRange(range_t range)
     @return The range_t value corresponding to the sensors range
 */
 /**************************************************************************/
-range_t Adafruit_ADXL343::getRange(void)
-{
+range_t Adafruit_ADXL343::getRange(void) {
   /* Red the data format register to preserve bits */
   return (range_t)(readRegister(ADXL343_REG_DATA_FORMAT) & 0x03);
 }
@@ -395,8 +392,7 @@ range_t Adafruit_ADXL343::getRange(void)
     @param dataRate The data rate to set, based on dataRate_t
 */
 /**************************************************************************/
-void Adafruit_ADXL343::setDataRate(dataRate_t dataRate)
-{
+void Adafruit_ADXL343::setDataRate(dataRate_t dataRate) {
   /* Note: The LOW_POWER bits are currently ignored and we always keep
      the device in 'normal' mode */
   writeRegister(ADXL343_REG_BW_RATE, dataRate);
@@ -409,8 +405,7 @@ void Adafruit_ADXL343::setDataRate(dataRate_t dataRate)
     @return The current data rate, based on dataRate_t
 */
 /**************************************************************************/
-dataRate_t Adafruit_ADXL343::getDataRate(void)
-{
+dataRate_t Adafruit_ADXL343::getDataRate(void) {
   return (dataRate_t)(readRegister(ADXL343_REG_BW_RATE) & 0x0F);
 }
 
@@ -427,13 +422,16 @@ bool Adafruit_ADXL343::getEvent(sensors_event_t *event) {
   /* Clear the event */
   memset(event, 0, sizeof(sensors_event_t));
 
-  event->version   = sizeof(sensors_event_t);
+  event->version = sizeof(sensors_event_t);
   event->sensor_id = _sensorID;
-  event->type      = SENSOR_TYPE_ACCELEROMETER;
-  event->timestamp = 0;
-  event->acceleration.x = getX() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-  event->acceleration.y = getY() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-  event->acceleration.z = getZ() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+  event->type = SENSOR_TYPE_ACCELEROMETER;
+  event->timestamp = millis();
+  event->acceleration.x =
+      getX() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+  event->acceleration.y =
+      getY() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+  event->acceleration.z =
+      getZ() * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
 
   return true;
 }
@@ -450,13 +448,13 @@ void Adafruit_ADXL343::getSensor(sensor_t *sensor) {
   memset(sensor, 0, sizeof(sensor_t));
 
   /* Insert the sensor name in the fixed length char array */
-  strncpy (sensor->name, "ADXL343", sizeof(sensor->name) - 1);
-  sensor->name[sizeof(sensor->name)- 1] = 0;
-  sensor->version     = 1;
-  sensor->sensor_id   = _sensorID;
-  sensor->type        = SENSOR_TYPE_PRESSURE;
-  sensor->min_delay   = 0;
-  sensor->max_value   = -156.9064F; /* -16g = 156.9064 m/s^2  */
-  sensor->min_value   = 156.9064F;  /*  16g = 156.9064 m/s^2  */
-  sensor->resolution  = 0.03923F;   /*  4mg = 0.0392266 m/s^2 */
+  strncpy(sensor->name, "ADXL343", sizeof(sensor->name) - 1);
+  sensor->name[sizeof(sensor->name) - 1] = 0;
+  sensor->version = 1;
+  sensor->sensor_id = _sensorID;
+  sensor->type = SENSOR_TYPE_ACCELEROMETER;
+  sensor->min_delay = 0;
+  sensor->min_value = -156.9064F; /*  -16g = 156.9064 m/s^2  */
+  sensor->max_value = 156.9064F;  /* 16g = 156.9064 m/s^2  */
+  sensor->resolution = 0.03923F;  /*  4mg = 0.0392266 m/s^2 */
 }
