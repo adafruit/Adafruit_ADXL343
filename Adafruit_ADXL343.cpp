@@ -93,6 +93,9 @@ static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi,
     @param value The value to write to the register
 */
 /**************************************************************************/
+
+// reg[7]  is /W, active low write
+// reg[6] is MB, multi-byte
 void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
   if (_i2c) {
     _wire->beginTransmission(_i2caddr);
@@ -118,11 +121,8 @@ void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
 /**************************************************************************/
 uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
   if (_i2c) {
-    _wire->beginTransmission(_i2caddr);
-    i2cwrite(reg);
-    _wire->endTransmission();
-    _wire->requestFrom(_i2caddr, 1);
-    return (i2cread());
+    Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(i2c_dev, reg, 1);
+    return ((uint8_t)reg_obj.read());
   } else {
     reg |= 0x80; // read byte
     digitalWrite(_cs, LOW);
@@ -144,11 +144,9 @@ uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
 /**************************************************************************/
 int16_t Adafruit_ADXL343::read16(uint8_t reg) {
   if (_i2c) {
-    _wire->beginTransmission(_i2caddr);
-    i2cwrite(reg);
-    _wire->endTransmission();
-    _wire->requestFrom(_i2caddr, 2);
-    return (uint16_t)(i2cread() | (i2cread() << 8));
+    Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(i2c_dev, reg, 2);
+    return ((uint16_t)reg_obj.read());
+
   } else {
     reg |= 0x80 | 0x40; // read byte | multibyte
     digitalWrite(_cs, LOW);
@@ -314,12 +312,36 @@ bool Adafruit_ADXL343::begin(uint8_t i2caddr) {
   if (_i2c) {
     _wire->begin();
     _i2caddr = i2caddr;
+    if (i2c_dev) {
+      delete i2c_dev; // remove old interface
+    }
+    i2c_dev = new Adafruit_I2CDevice(i2caddr, _wire);
+
+    if (!i2c_dev->begin()) {
+      return false;
+    }
+
+    // return _init(sensor_id);
+
   } else {
     pinMode(_cs, OUTPUT);
     pinMode(_clk, OUTPUT);
     digitalWrite(_clk, HIGH);
     pinMode(_do, OUTPUT);
     pinMode(_di, INPUT);
+
+    // i2c_dev = NULL;
+
+    // if (spi_dev) {
+    //   delete spi_dev; // remove old interface
+    // }
+    // spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
+    //                                 1000000,               // frequency
+    //                                 SPI_BITORDER_MSBFIRST, // bit order
+    //                                 SPI_MODE0);            // data mode
+    // if (!spi_dev->begin()) {
+    //   return false;
+    // }
   }
 
   /* Check connection */
