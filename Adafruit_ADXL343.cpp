@@ -31,36 +31,6 @@
 
 /**************************************************************************/
 /*!
-    @brief  Abstract away platform differences in Arduino wire library
-
-    @return The read results as an unsigned integer.
-*/
-/**************************************************************************/
-inline uint8_t Adafruit_ADXL343::i2cread(void) {
-#if ARDUINO >= 100
-  return _wire->read();
-#else
-  return _wire->receive();
-#endif
-}
-
-/**************************************************************************/
-/*!
-    @brief  Abstract away platform differences in Arduino wire library
-
-    @param x The byte to write to the I2C bus.
-*/
-/**************************************************************************/
-inline void Adafruit_ADXL343::i2cwrite(uint8_t x) {
-#if ARDUINO >= 100
-  _wire->write((uint8_t)x);
-#else
-  _wire->send(x);
-#endif
-}
-
-/**************************************************************************/
-/*!
     @brief  Abstract away SPI receiver & transmitter
 
     @param clock The SCK pin
@@ -98,10 +68,8 @@ static uint8_t spixfer(uint8_t clock, uint8_t miso, uint8_t mosi,
 // reg[6] is MB, multi-byte
 void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
   if (_i2c) {
-    _wire->beginTransmission(_i2caddr);
-    i2cwrite((uint8_t)reg);
-    i2cwrite((uint8_t)(value));
-    _wire->endTransmission();
+    Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(i2c_dev, reg, 1);
+    reg_obj.write(value);
   } else {
     digitalWrite(_cs, LOW);
     spixfer(_clk, _di, _do, reg);
@@ -310,8 +278,6 @@ Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi,
 bool Adafruit_ADXL343::begin(uint8_t i2caddr) {
 
   if (_i2c) {
-    _wire->begin();
-    _i2caddr = i2caddr;
     if (i2c_dev) {
       delete i2c_dev; // remove old interface
     }

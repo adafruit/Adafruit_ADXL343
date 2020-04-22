@@ -158,10 +158,6 @@ private:
   Adafruit_SPIDevice *spi_dev = NULL;
   Adafruit_I2CDevice *i2c_dev = NULL;
 
-  inline uint8_t i2cread(void);
-  inline void i2cwrite(uint8_t x);
-  uint8_t _i2caddr;
-
   TwoWire *_wire;
   int32_t _sensorID;
   range_t _range;
