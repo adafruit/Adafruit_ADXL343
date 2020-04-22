@@ -1,7 +1,7 @@
 /**************************************************************************/
 /*!
     @file     Adafruit_ADXL343.h
-    @author   K. Townsend (Adafruit Industries)
+    @author   Bryan Siepert and K. Townsend (Adafruit Industries)
 
     BSD license (see license.txt)
 
