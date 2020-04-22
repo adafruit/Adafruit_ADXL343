@@ -88,17 +88,9 @@ void Adafruit_ADXL343::writeRegister(uint8_t reg, uint8_t value) {
 */
 /**************************************************************************/
 uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
-  if (_i2c) {
-    Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(i2c_dev, reg, 1);
-    return ((uint8_t)reg_obj.read());
-  } else {
-    reg |= 0x80; // read byte
-    digitalWrite(_cs, LOW);
-    spixfer(_clk, _di, _do, reg);
-    uint8_t reply = spixfer(_clk, _di, _do, 0xFF);
-    digitalWrite(_cs, HIGH);
-    return reply;
-  }
+  Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, reg, 1);
+  return ((uint16_t)reg_obj.read());
 }
 
 /**************************************************************************/
@@ -110,20 +102,11 @@ uint8_t Adafruit_ADXL343::readRegister(uint8_t reg) {
     @return The 16-bit value read from the reg starting address
 */
 /**************************************************************************/
-int16_t Adafruit_ADXL343::read16(uint8_t reg) {
-  if (_i2c) {
-    Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(i2c_dev, reg, 2);
-    return ((uint16_t)reg_obj.read());
 
-  } else {
-    reg |= 0x80 | 0x40; // read byte | multibyte
-    digitalWrite(_cs, LOW);
-    spixfer(_clk, _di, _do, reg);
-    uint16_t reply =
-        spixfer(_clk, _di, _do, 0xFF) | (spixfer(_clk, _di, _do, 0xFF) << 8);
-    digitalWrite(_cs, HIGH);
-    return reply;
-  }
+int16_t Adafruit_ADXL343::read16(uint8_t reg) {
+  Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, reg, 2);
+  return ((uint16_t)reg_obj.read());
 }
 
 /**************************************************************************/
@@ -296,18 +279,18 @@ bool Adafruit_ADXL343::begin(uint8_t i2caddr) {
     pinMode(_do, OUTPUT);
     pinMode(_di, INPUT);
 
-    // i2c_dev = NULL;
+    i2c_dev = NULL;
 
-    // if (spi_dev) {
-    //   delete spi_dev; // remove old interface
-    // }
-    // spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
-    //                                 1000000,               // frequency
-    //                                 SPI_BITORDER_MSBFIRST, // bit order
-    //                                 SPI_MODE0);            // data mode
-    // if (!spi_dev->begin()) {
-    //   return false;
-    // }
+    if (spi_dev) {
+      delete spi_dev; // remove old interface
+    }
+    spi_dev = new Adafruit_SPIDevice(_cs, _clk, _di, _do,
+                                     1000000,               // frequency
+                                     SPI_BITORDER_MSBFIRST, // bit order
+                                     SPI_MODE3);            // data mode
+    if (!spi_dev->begin()) {
+      return false;
+    }
   }
 
   /* Check connection */
