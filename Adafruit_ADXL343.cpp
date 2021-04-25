@@ -177,7 +177,7 @@ bool Adafruit_ADXL343::getXYZ(int16_t &x, int16_t &y, int16_t &z) {
   int16_t buffer[] = {0, 0, 0};
   Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(
       i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL343_REG_DATAX0, 6);
-  if(!reg_obj.read((uint8_t*)&buffer, 6))
+  if (!reg_obj.read((uint8_t *)&buffer, 6))
     return false;
   x = buffer[0];
   y = buffer[1];
@@ -389,11 +389,14 @@ bool Adafruit_ADXL343::getEvent(sensors_event_t *event) {
   event->sensor_id = _sensorID;
   event->type = SENSOR_TYPE_ACCELEROMETER;
   event->timestamp = millis();
-  if(!getXYZ(x, y, z))
+  if (!getXYZ(x, y, z))
     return false;
-  event->acceleration.x = x * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-  event->acceleration.y = y * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-  event->acceleration.z = z * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+  event->acceleration.x =
+      x * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+  event->acceleration.y =
+      y * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+  event->acceleration.z =
+      z * ADXL343_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
 
   return true;
 }
