@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['overrun',['overrun',['../unionint__config.html#aed5918039628382fca1c029a2d188af5',1,'int_config']]]
+  ['i2c_5fdev',['i2c_dev',['../class_adafruit___a_d_x_l343.html#a79056c22c6535abe5d74063aff4ad25e',1,'Adafruit_ADXL343']]],
+  ['inactivity',['inactivity',['../unionint__config.html#abc2431f15320b1fa842c2625530fe115',1,'int_config']]]
 ];

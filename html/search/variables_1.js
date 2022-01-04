@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bits',['bits',['../unionint__config.html#aadd255ac2f2ff4d102ea6d1941968112',1,'int_config']]]
+  ['activity',['activity',['../unionint__config.html#a625703cff7e93831f6e55eb48f739b37',1,'int_config']]]
 ];

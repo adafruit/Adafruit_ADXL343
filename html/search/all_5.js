@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['freefall',['freefall',['../unionint__config.html#a733fe83d604c875e390b724d8a9cd53c',1,'int_config']]]
+  ['enableinterrupts',['enableInterrupts',['../class_adafruit___a_d_x_l343.html#abe69f6718059917432951dc1f9f1730a',1,'Adafruit_ADXL343']]]
 ];
