@@ -182,14 +182,16 @@ public:
   int16_t getZ(void);
 
 protected:
-  Adafruit_SPIDevice *spi_dev = NULL;
-  Adafruit_I2CDevice *i2c_dev = NULL;
+  Adafruit_SPIDevice *spi_dev = NULL; ///< BusIO SPI device
+  Adafruit_I2CDevice *i2c_dev = NULL; ///< BusIO I2C device
 
-  TwoWire *_wire;
-  int32_t _sensorID;
-  adxl34x_range_t _range;
-  uint8_t _clk, _do, _di, _cs;
-  bool _i2c;
+  TwoWire *_wire;         ///< I2C hardware interface
+  int32_t _sensorID;      ///< User-set sensor identifier
+  adxl34x_range_t _range; ///< cache of range
+  uint8_t _clk,           ///< SPI software clock
+      _do,                ///< SPI software data out
+      _di,                ///< SPI software data in
+      _cs;                ///< SPI software chip select
 };
 
 #endif

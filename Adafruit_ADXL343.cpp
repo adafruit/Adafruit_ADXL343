@@ -174,7 +174,6 @@ int16_t Adafruit_ADXL343::getZ(void) { return read16(ADXL3XX_REG_DATAZ0); }
 /**************************************************************************/
 Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID) {
   _sensorID = sensorID;
-  _i2c = true;
   _wire = &Wire;
 }
 
@@ -189,7 +188,6 @@ Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID) {
 /**************************************************************************/
 Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, TwoWire *wireBus) {
   _sensorID = sensorID;
-  _i2c = true;
   _wire = wireBus;
 }
 
@@ -212,7 +210,7 @@ Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi,
   _clk = clock;
   _do = mosi;
   _di = miso;
-  _i2c = false;
+  _wire = NULL;
 }
 
 /**************************************************************************/
@@ -224,7 +222,7 @@ Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi,
 /**************************************************************************/
 bool Adafruit_ADXL343::begin(uint8_t i2caddr) {
 
-  if (_i2c) {
+  if (_wire) {
     if (i2c_dev) {
       delete i2c_dev; // remove old interface
     }
