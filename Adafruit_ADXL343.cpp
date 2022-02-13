@@ -350,6 +350,60 @@ adxl3xx_dataRate_t Adafruit_ADXL343::getDataRate(void) {
 
 /**************************************************************************/
 /*!
+    @brief  Retrieves the X Y Z trim offsets, note that they are 4 bits signed
+    but we use int8_t to store and 'extend' the sign bit!
+    @param x Pointer to the x offset, from -5 to 4 (internally multiplied by 8
+   lsb)
+    @param y Pointer to the y offset, from -5 to 4 (internally multiplied by 8
+   lsb)
+    @param z Pointer to the z offset, from -5 to 4 (internally multiplied by 8
+   lsb)
+*/
+/**************************************************************************/
+void Adafruit_ADXL343::getTrimOffsets(int8_t *x, int8_t *y, int8_t *z) {
+  Adafruit_BusIO_Register x_off = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL3XX_REG_OFSX, 1);
+  if (x != NULL)
+    *x = x_off.read();
+  Adafruit_BusIO_Register y_off = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL3XX_REG_OFSY, 1);
+  if (y != NULL)
+    *y = y_off.read();
+  Adafruit_BusIO_Register z_off = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL3XX_REG_OFSZ, 1);
+  if (z != NULL)
+    *z = z_off.read();
+
+  return;
+}
+
+/**************************************************************************/
+/*!
+    @brief  Sets the X Y Z trim offsets, note that they are 4 bits signed
+    but we use int8_t to store and 'extend' the sign bit!
+    @param x The x offset, from -5 to 4 (internally multiplied by 8 lsb)
+    @param y The y offset, from -5 to 4 (internally multiplied by 8 lsb)
+    @param z The z offset, from -5 to 4 (internally multiplied by 8 lsb)
+*/
+/**************************************************************************/
+void Adafruit_ADXL343::setTrimOffsets(int8_t x, int8_t y, int8_t z) {
+  Adafruit_BusIO_Register x_off = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL3XX_REG_OFSX, 1);
+  x_off.write(x);
+
+  Adafruit_BusIO_Register y_off = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL3XX_REG_OFSY, 1);
+  y_off.write(y);
+
+  Adafruit_BusIO_Register z_off = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL3XX_REG_OFSZ, 1);
+  z_off.write(z);
+
+  return;
+}
+
+/**************************************************************************/
+/*!
     @brief  Gets the most recent sensor event
 
     @param event Pointer to the sensors_event_t placeholder

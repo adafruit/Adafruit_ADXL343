@@ -177,6 +177,9 @@ public:
   bool mapInterrupts(int_config cfg);
   uint8_t checkInterrupts(void);
 
+  void getTrimOffsets(int8_t *x, int8_t *y, int8_t *z);
+  void setTrimOffsets(int8_t x, int8_t y, int8_t z);
+
   int16_t getX(void);
   int16_t getY(void);
   int16_t getZ(void);
