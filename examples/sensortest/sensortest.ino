@@ -16,7 +16,7 @@ Adafruit_ADXL343 accel = Adafruit_ADXL343(12345);
 /* Uncomment following line for default Wire bus      */
 /* and alternative I2C address 0X1D. Connect pin SDO  */
 /* to Vcc for this. */
-Adafruit_ADXL343 accel = Adafruit_ADXL343(12345, true);
+//Adafruit_ADXL343 accel = Adafruit_ADXL343(12345, true);
 
 /* NeoTrellis M4, etc.                    */
 /* Uncomment following line for Wire1 bus */
