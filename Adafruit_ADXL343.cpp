@@ -186,6 +186,21 @@ Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID) {
  *   @param wireBus   TwoWire instance to use for I2C communication.
  */
 /**************************************************************************/
+Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, bool altAddress) {
+  _sensorID = sensorID;
+  _wire = &Wire;
+  _altAddress = altAddress;
+}
+
+/**************************************************************************/
+/*!
+ *   @brief  Instantiates a new ADXL343 class
+ *
+ *   @param sensorID  An optional ID # so you can track this sensor, it will
+ *                    tag sensorEvents you create.
+ *   @param wireBus   TwoWire instance to use for I2C communication.
+ */
+/**************************************************************************/
 Adafruit_ADXL343::Adafruit_ADXL343(int32_t sensorID, TwoWire *wireBus) {
   _sensorID = sensorID;
   _wire = wireBus;
@@ -222,6 +237,10 @@ Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi,
 /**************************************************************************/
 bool Adafruit_ADXL343::begin(uint8_t i2caddr) {
 
+  if (_altAddress) {
+    i2caddr = ADXL343_ALT_ADDRESS; //overwrite default I2C address
+  }
+  
   if (_wire) {
     if (i2c_dev) {
       delete i2c_dev; // remove old interface

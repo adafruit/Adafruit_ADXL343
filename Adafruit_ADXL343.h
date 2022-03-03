@@ -32,7 +32,8 @@
 /*=========================================================================
     I2C ADDRESS/BITS
     -----------------------------------------------------------------------*/
-#define ADXL343_ADDRESS (0x53) /**< Assumes ALT address pin low */
+#define ADXL343_ADDRESS (0x53) /**< Assumes ALT address pin low, is the default */
+#define ADXL343_ALT_ADDRESS (0x1D) /**< Assumes ALT address pin high */
 /*=========================================================================*/
 
 /*=========================================================================
@@ -156,6 +157,7 @@ typedef enum {
 class Adafruit_ADXL343 : public Adafruit_Sensor {
 public:
   Adafruit_ADXL343(int32_t sensorID);
+  Adafruit_ADXL343(int32_t sensorID, bool altAddress);
   Adafruit_ADXL343(int32_t sensorID, TwoWire *wireBus);
   Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t cs,
                    int32_t sensorID = -1);
@@ -189,12 +191,14 @@ protected:
   Adafruit_I2CDevice *i2c_dev = NULL; ///< BusIO I2C device
 
   TwoWire *_wire;         ///< I2C hardware interface
+  bool _altAddress;       ///< User-set flag to use alt I2C address (see datasheet)
   int32_t _sensorID;      ///< User-set sensor identifier
   adxl34x_range_t _range; ///< cache of range
   uint8_t _clk,           ///< SPI software clock
       _do,                ///< SPI software data out
       _di,                ///< SPI software data in
       _cs;                ///< SPI software chip select
+  
 };
 
 #endif

@@ -9,7 +9,14 @@
 
 /* Assign a unique ID to this sensor at the same time */
 /* Uncomment following line for default Wire bus      */
+/* and default I2C address 0X53                       */
 Adafruit_ADXL343 accel = Adafruit_ADXL343(12345);
+
+/* Assign a unique ID to this sensor at the same time */
+/* Uncomment following line for default Wire bus      */
+/* and alternative I2C address 0X1D. Connect pin SDO  */
+/* to Vcc for this. */
+Adafruit_ADXL343 accel = Adafruit_ADXL343(12345, true);
 
 /* NeoTrellis M4, etc.                    */
 /* Uncomment following line for Wire1 bus */
