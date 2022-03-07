@@ -176,7 +176,7 @@ int16_t Adafruit_ADXL343::getZ(void) { return read16(ADXL343_REG_DATAZ0); }
 bool Adafruit_ADXL343::getXYZ(int16_t &x, int16_t &y, int16_t &z) {
   int16_t buffer[] = {0, 0, 0};
   Adafruit_BusIO_Register reg_obj = Adafruit_BusIO_Register(
-      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL343_REG_DATAX0, 6);
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, ADXL3XX_REG_DATAX0, 6);
   if (!reg_obj.read((uint8_t *)&buffer, 6))
     return false;
   x = buffer[0];
