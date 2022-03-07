@@ -170,7 +170,7 @@ int16_t Adafruit_ADXL343::getZ(void) { return read16(ADXL343_REG_DATAZ0); }
     @param x reference to return x acceleration data
     @param y reference to return y acceleration data
     @param z reference to return z acceleration data
-    @return either success or fail to get data
+    @return True if the operation was successful, otherwise false.
 */
 /**************************************************************************/
 bool Adafruit_ADXL343::getXYZ(int16_t &x, int16_t &y, int16_t &z) {
