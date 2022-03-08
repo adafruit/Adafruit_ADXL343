@@ -183,6 +183,7 @@ public:
   int16_t getX(void);
   int16_t getY(void);
   int16_t getZ(void);
+  bool getXYZ(int16_t &x, int16_t &y, int16_t &z);
 
 protected:
   Adafruit_SPIDevice *spi_dev = NULL; ///< BusIO SPI device
