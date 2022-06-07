@@ -239,6 +239,7 @@ Adafruit_ADXL343::Adafruit_ADXL343(uint8_t clock, uint8_t miso, uint8_t mosi,
     @brief  Instantiates a new ADXL343 class in hardware SPI mode
 
     @param cs The CS/SSEL pin
+    @param theSPI SPIClass instance to use for SPI communication.
     @param sensorID An optional ID # so you can track this sensor, it will tag
            sensorEvents you create.
 */
