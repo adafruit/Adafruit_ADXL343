@@ -86,8 +86,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6716ac3f8d88dc306bc562467c5aab0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new ADXL343 class.  <a href="#a6716ac3f8d88dc306bc562467c5aab0b">More...</a><br /></td></tr>
 <tr class="separator:a6716ac3f8d88dc306bc562467c5aab0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8d8b1d8a193667b03dfedb742027cf4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#ab8d8b1d8a193667b03dfedb742027cf4">Adafruit_ADXL343</a> (uint8_t clock, uint8_t miso, uint8_t mosi, uint8_t cs, int32_t sensorID=-1)</td></tr>
-<tr class="memdesc:ab8d8b1d8a193667b03dfedb742027cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new ADXL343 class in SPI mode.  <a href="#ab8d8b1d8a193667b03dfedb742027cf4">More...</a><br /></td></tr>
+<tr class="memdesc:ab8d8b1d8a193667b03dfedb742027cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new ADXL343 class in software SPI mode.  <a href="#ab8d8b1d8a193667b03dfedb742027cf4">More...</a><br /></td></tr>
 <tr class="separator:ab8d8b1d8a193667b03dfedb742027cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82048f0bb1be41a1155274acfff4cab3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#a82048f0bb1be41a1155274acfff4cab3">Adafruit_ADXL343</a> (uint8_t cs, SPIClass *theSPI, int32_t sensorID=-1)</td></tr>
+<tr class="memdesc:a82048f0bb1be41a1155274acfff4cab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new ADXL343 class in hardware SPI mode.  <a href="#a82048f0bb1be41a1155274acfff4cab3">More...</a><br /></td></tr>
+<tr class="separator:a82048f0bb1be41a1155274acfff4cab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac43fa05e13e839fc43f1cff41e10f8fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#ac43fa05e13e839fc43f1cff41e10f8fc">begin</a> (uint8_t i2caddr=<a class="el" href="_adafruit___a_d_x_l343_8h.html#a471a5bff26beba374f78df5b333d4716">ADXL343_ADDRESS</a>)</td></tr>
 <tr class="memdesc:ac43fa05e13e839fc43f1cff41e10f8fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setups the HW (reads coefficients values, etc.)  <a href="#ac43fa05e13e839fc43f1cff41e10f8fc">More...</a><br /></td></tr>
 <tr class="separator:ac43fa05e13e839fc43f1cff41e10f8fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,9 +163,13 @@ Adafruit_I2CDevice *&#160;</td><td class="memItemRight" valign="bottom"><a class
 <tr class="memdesc:a79056c22c6535abe5d74063aff4ad25e"><td class="mdescLeft">&#160;</td><td class="mdescRight">BusIO I2C device. <br /></td></tr>
 <tr class="separator:a79056c22c6535abe5d74063aff4ad25e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a028475e3508c518ba544a697beb62781"><td class="memItemLeft" align="right" valign="top"><a id="a028475e3508c518ba544a697beb62781"></a>
-TwoWire *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#a028475e3508c518ba544a697beb62781">_wire</a></td></tr>
+TwoWire *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#a028475e3508c518ba544a697beb62781">_wire</a> = NULL</td></tr>
 <tr class="memdesc:a028475e3508c518ba544a697beb62781"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C hardware interface. <br /></td></tr>
 <tr class="separator:a028475e3508c518ba544a697beb62781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f820493ddb7579be6d59ca5800d94e3"><td class="memItemLeft" align="right" valign="top"><a id="a1f820493ddb7579be6d59ca5800d94e3"></a>
+SPIClass *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#a1f820493ddb7579be6d59ca5800d94e3">_spi</a> = NULL</td></tr>
+<tr class="memdesc:a1f820493ddb7579be6d59ca5800d94e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI hardware interface. <br /></td></tr>
+<tr class="separator:a1f820493ddb7579be6d59ca5800d94e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a207789a4fe4b38f316fe5aaba9a45f4c"><td class="memItemLeft" align="right" valign="top"><a id="a207789a4fe4b38f316fe5aaba9a45f4c"></a>
 int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___a_d_x_l343.html#a207789a4fe4b38f316fe5aaba9a45f4c">_sensorID</a></td></tr>
 <tr class="memdesc:a207789a4fe4b38f316fe5aaba9a45f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">User-set sensor identifier. <br /></td></tr>
@@ -192,7 +199,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <div class="textblock"><p>Driver for the Adafruit ADXL343 breakout. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa62db60446ca9ad7033d7c821573f716"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa62db60446ca9ad7033d7c821573f716">&#9670;&nbsp;</a></span>Adafruit_ADXL343() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa62db60446ca9ad7033d7c821573f716">&#9670;&nbsp;</a></span>Adafruit_ADXL343() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,7 +225,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div>
 </div>
 <a id="a6716ac3f8d88dc306bc562467c5aab0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6716ac3f8d88dc306bc562467c5aab0b">&#9670;&nbsp;</a></span>Adafruit_ADXL343() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6716ac3f8d88dc306bc562467c5aab0b">&#9670;&nbsp;</a></span>Adafruit_ADXL343() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +262,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div>
 </div>
 <a id="ab8d8b1d8a193667b03dfedb742027cf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8d8b1d8a193667b03dfedb742027cf4">&#9670;&nbsp;</a></span>Adafruit_ADXL343() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8d8b1d8a193667b03dfedb742027cf4">&#9670;&nbsp;</a></span>Adafruit_ADXL343() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,14 +305,58 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Instantiates a new ADXL343 class in SPI mode. </p>
+<p>Instantiates a new ADXL343 class in software SPI mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">clock</td><td>The SCK pin </td></tr>
     <tr><td class="paramname">miso</td><td>The MISO pin </td></tr>
     <tr><td class="paramname">mosi</td><td>The MOSI pin </td></tr>
     <tr><td class="paramname">cs</td><td>The CS/SSEL pin </td></tr>
-    <tr><td class="paramname">sensorID</td><td>An optional ID # so you can track this sensor, it will tag sensoorEvents you create. </td></tr>
+    <tr><td class="paramname">sensorID</td><td>An optional ID # so you can track this sensor, it will tag sensorEvents you create. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a82048f0bb1be41a1155274acfff4cab3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82048f0bb1be41a1155274acfff4cab3">&#9670;&nbsp;</a></span>Adafruit_ADXL343() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Adafruit_ADXL343::Adafruit_ADXL343 </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>cs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SPIClass *&#160;</td>
+          <td class="paramname"><em>theSPI</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>sensorID</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instantiates a new ADXL343 class in hardware SPI mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cs</td><td>The CS/SSEL pin </td></tr>
+    <tr><td class="paramname">theSPI</td><td>SPIClass instance to use for SPI communication. </td></tr>
+    <tr><td class="paramname">sensorID</td><td>An optional ID # so you can track this sensor, it will tag sensorEvents you create. </td></tr>
   </table>
   </dd>
 </dl>

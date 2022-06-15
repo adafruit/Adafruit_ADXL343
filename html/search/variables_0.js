@@ -6,5 +6,6 @@ var searchData=
   ['_5fdo',['_do',['../class_adafruit___a_d_x_l343.html#ae1805485c4c2013a00adeb23fc07beaf',1,'Adafruit_ADXL343']]],
   ['_5frange',['_range',['../class_adafruit___a_d_x_l343.html#a1ac5201c3ad1976b0f6eadc4699a9500',1,'Adafruit_ADXL343']]],
   ['_5fsensorid',['_sensorID',['../class_adafruit___a_d_x_l343.html#a207789a4fe4b38f316fe5aaba9a45f4c',1,'Adafruit_ADXL343']]],
+  ['_5fspi',['_spi',['../class_adafruit___a_d_x_l343.html#a1f820493ddb7579be6d59ca5800d94e3',1,'Adafruit_ADXL343']]],
   ['_5fwire',['_wire',['../class_adafruit___a_d_x_l343.html#a028475e3508c518ba544a697beb62781',1,'Adafruit_ADXL343']]]
 ];
