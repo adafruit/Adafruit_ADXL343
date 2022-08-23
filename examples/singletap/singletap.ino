@@ -64,7 +64,7 @@ void loop(void)
   while (g_tap_count) {
       Serial.println("Single tap detected!");
       /* Clear the interrupt as a side-effect of reading the interrupt source register.. */
-      (void)accel.checkInterrupts();
+      accel.checkInterrupts();
       /* Decrement the local interrupt counter. */
       g_tap_count--;
   }
